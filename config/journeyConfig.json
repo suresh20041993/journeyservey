@@ -1,0 +1,32 @@
+{
+    "start": "SurveyEmail",
+    "stages": {
+      "SurveyEmail": {
+        "action": { "type": "sendEmail", "details": "Survey email" },
+        "events": { "emailResponded": { "nextStage": "sendThankYouEmail" }, "timeout": { "nextStage": "sendReminderEmail" } }
+      },
+      "sendWhatsappMessage": {
+        "action": { "type": "sendWhatsapp", "details": "Whatsapp message" },
+        "events": {
+          "whatsappRespondedYes": { "nextStage": "updateCRM" },
+          "timeout": { "nextStage": "updateFailureCount" }
+        }
+      },
+      "sendThankYouEmail": {
+        "action": { "type": "sendEmail", "details": "Thank you email" },
+        "events": { "default": { "nextStage": "exit" } }
+      },
+      "updateCRM": {
+        "action": { "type": "updateCRM" },
+        "events": { "default": { "nextStage": "exit" } }
+      },
+      "updateFailureCount": {
+        "action": { "type": "updateFailureCount" },
+        "events": { "default": { "nextStage": "exit" } }
+      },
+      "exit": {
+        "action": { "type": "exit" }
+      }
+    }
+  }
+  
